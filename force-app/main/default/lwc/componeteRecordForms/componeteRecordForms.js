@@ -11,7 +11,6 @@ import AEROPORTO_FIELD from "@salesforce/schema/ObjAeroporto__c.Aeroporto__c"
 
 
 export default class ComponentedeVoos extends LightningElement {
-    colums;
     value = '';
     @track selecao=[];
     value2 = '';
@@ -50,50 +49,30 @@ export default class ComponentedeVoos extends LightningElement {
     handleChangeAeroporto2(event) {
             this.value2 = event.detail.value;
             }  
-
-
-   @api recordId;
-    @wire(getLatitude, {iata: '$value'})
-    lat1({data}){
-        this.lat1 = data;
-    }
-
-    @wire(getLatitude, {iata: '$value2'})
-    lat2({data}){
-        this.lat2 = data;
-    } 
-
-    @wire(getLongitude, {iata: '$value'})
-    long1({data}){
-        this.long1 = data;
-    }
-
-    @wire(getLongitude, {iata: '$value2'})
-    long2({data}){
-        this.long2 = data;
-    }
-
-    @wire( calculateDistance, { latitude1: '$lat1', longitude1:'$long1', latitude2: '$lat2', longitude2: '$long2' })
-    distancia({data}){
-        this.distancia = data;
-    }
-    
-    get campo() {
-        const distanciaValue = this.distancia && this.distancia.data ? this.distancia.data : '';
-        return distanciaValue;
-    }
-    
-    handleClick(event) {
-        this.distancia= event.detail.value; 
-        this.clickedButtonLabel = event.target.value;
-        }  
-       
-}
-
-            
-
+           
+    handleClick(event){ 
+                getLatitude({iata: this.value}).then(result => {
+                    this.lat1 = result;
+                });
         
-    
-            
-            
-            
+                getLatitude({iata: this.value2}).then(result => {
+                    this.lat2 = result;
+                });
+        
+                getLongitude({iata: this.value}).then(result => {
+                    this.long1 = result;
+                });
+        
+                getLongitude({iata: this.value2}).then(result => {
+                    this.long2 = result;
+                });
+        
+                calculateDistance({latitude1: this.lat1, longitude1: this.long1, 
+                                   latitude2: this.lat2, longitude2: this.long2})
+                    .then(result => {
+                        this.distancia = result;
+                    });
+        
+                this.clickedButtonLabel = event.target.value;  
+    }
+}
