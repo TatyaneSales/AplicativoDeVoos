@@ -1,22 +1,22 @@
 <template>
-    <div>
+    <div class="slds-m-around_medium">
         <lightning-combobox name="Aeroporto1"
-                        label="Aeroporto de origem"
+                        label="Selecione aeroporto de origem"
                         value={value}
                         options={options}
-                        onchange={handleChangeAeroporto1} >
+                        onchange={handleChangeAeroporto1}>
         </lightning-combobox>
     
-        <p> Aeroporto de origem selecionado: {value}</p>
+        <p class="slds-m-around_medium">Aeroporto de origem selecionado: {value}</p>
 
         <lightning-combobox name="Aeroporto2"
-                        label="Aeroporto de chegada"
+                        label="Selecione aeroporto de chegada"
                         value={value2}
                         options={options2}
                         onchange={handleChangeAeroporto2}>
         </lightning-combobox>
 
-        <p>Aeroporto de destino selecionado: {value2}</p>
+        <p class="slds-m-around_medium">Aeroporto de destino selecionado: {value2}</p>
     
     </div>
     <div class="slds-m-top_small slds-m-bottom_medium">
@@ -29,23 +29,14 @@
                           stretch="false" 
                           class="slds-text-heading_small"
         ></lightning-button>
-        <p> Distância: {distancia} Km</p>
-        <p>Rótulo do botão clicado: {clickedButtonLabel}</p>
-    </div>
-    <div>   
-
-
-
-        <lightning-card title={distancia}  options={campo}>
-      <template if:true={data}>
+      </div>
+      <div>
+         <lightning-card   options={campo}>
         <div class="slds-m-around_medium">
-          <p>{distancia}</p>
+          A distância entre os aeroportos é de {distancia} Km.
         </div>
-      </template>
     </lightning-card>
-</div>
- 
-    
+      </div>   
 </template>
 
 

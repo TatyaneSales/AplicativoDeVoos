@@ -3,7 +3,7 @@ public with sharing class SelecionaAeroporto {
     
     @AuraEnabled(cacheable=true)
     public static List<ObjAeroporto__c> getIATA(){
-        List <ObjAeroporto__c> aeroporto = new List<ObjAeroporto__c>([SELECT Aeroporto__c, IATA__c from ObjAeroporto__c]);
+        List <ObjAeroporto__c> aeroporto = new List<ObjAeroporto__c>([SELECT Aeroporto__c, IATA__c, Latitude__c, Longitude__c from ObjAeroporto__c]);
         return aeroporto;
  }    
     @AuraEnabled(cacheable=true)

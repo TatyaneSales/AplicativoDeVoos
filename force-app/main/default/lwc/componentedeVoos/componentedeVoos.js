@@ -11,16 +11,15 @@ import AEROPORTO_FIELD from "@salesforce/schema/ObjAeroporto__c.Aeroporto__c"
 
 
 export default class ComponentedeVoos extends LightningElement {
-    colums;
     value = '';
     @track selecao=[];
     value2 = '';
     @track selecao2 =[];
-    @track lat1= '';
+    lat1;
     @track lat2= '';
-    @track long1='';
+    long1;
     @track long2='';
-    distancia= '';
+    distancia;
     
     get options(){
         return this.selecao;
@@ -45,48 +44,43 @@ export default class ComponentedeVoos extends LightningElement {
      
     handleChangeAeroporto1(event) {
         this.value = event.detail.value;
+        getLatitude({'iata' : event.detail.value}).then(result=>{
+            this.lat1 = result[0].Latitude__c;
+            console.log(this.lat1);
+        });
+        
+        getLongitude({'iata' : event.detail.value}).then(result=>{
+            this.long1 = result[0].Longitude__c;
+            console.log(this.long1);
+        });
+       
         }
 
     handleChangeAeroporto2(event) {
             this.value2 = event.detail.value;
+            getLatitude({'iata' : event.detail.value}).then(result=>{
+                this.lat2 = result[0].Latitude__c;
+                console.log(this.lat2);
+            });
+            
+            getLongitude({'iata' : event.detail.value}).then(result=>{
+                this.long2 = result[0].Longitude__c;
+                console.log(this.long2);
+            });
             }  
 
-
-   @api recordId;
-    @wire(getLatitude, {iata: '$value'})
-    lat1({data}){
-        this.lat1 = data;
+    handleClick(event){
+        this.distancia = event.detail.value; 
+        calculateDistance({'latitude1': this.lat1, 'longitude1': this.long1, 'latitude2': this.lat2, 'longitude2': this.long2}).then(result=>{
+            this.distancia = result;
+            console.log("distancia:" + this.distancia);
+        });
+       
     }
-
-    @wire(getLatitude, {iata: '$value2'})
-    lat2({data}){
-        this.lat2 = data;
-    } 
-
-    @wire(getLongitude, {iata: '$value'})
-    long1({data}){
-        this.long1 = data;
-    }
-
-    @wire(getLongitude, {iata: '$value2'})
-    long2({data}){
-        this.long2 = data;
-    }
-
-    @wire( calculateDistance, { latitude1: '$lat1', longitude1:'$long1', latitude2: '$lat2', longitude2: '$long2' })
-    distancia({data}){
-        this.distancia = data;
-    }
-    
+  
     get campo() {
-        const distanciaValue = this.distancia && this.distancia.data ? this.distancia.data : '';
-        return distanciaValue;
+        return this.distancia;
     }
-    
-    handleClick(event) {
-        this.distancia= event.detail.value; 
-        this.clickedButtonLabel = event.target.value;
-        }  
        
 }
 
