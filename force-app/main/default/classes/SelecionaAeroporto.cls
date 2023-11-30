@@ -8,13 +8,11 @@ public with sharing class SelecionaAeroporto {
  }    
     @AuraEnabled(cacheable=true)
     public static List<ObjAeroporto__c> latitude (String iata){
-        List <ObjAeroporto__c> latitude = new List<ObjAeroporto__c>([SELECT Latitude__c from ObjAeroporto__c WHERE IATA__c =: iata]);
-        return latitude;
-} 
+        return [SELECT Latitude__c from ObjAeroporto__c WHERE IATA__c =: iata];
+    } 
 
     @AuraEnabled(cacheable=true)
     public static List<ObjAeroporto__c> longitude (String iata){
-        List <ObjAeroporto__c> longitude = new List<ObjAeroporto__c>([SELECT Longitude__c from ObjAeroporto__c WHERE IATA__c =: iata]);
-        return longitude;
-} 
+        return [SELECT Longitude__c from ObjAeroporto__c WHERE IATA__c =: iata];
+}
 }
