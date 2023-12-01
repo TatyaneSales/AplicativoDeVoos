@@ -1,13 +1,14 @@
 <template>
-    <div class="slds-m-around_medium">
+    <div class="slds-size_6-of-12 slds-text-align_left">
         <lightning-combobox name="Aeroporto1"
                         label="Selecione aeroporto de origem"
                         value={value}
                         options={options}
-                        onchange={handleChangeAeroporto1}>
+                        onchange={handleChangeAeroporto1}
+                        >
         </lightning-combobox>
     
-        <p class="slds-m-around_medium">Aeroporto de origem selecionado: {value}</p>
+        <p class="slds-p-around_x-small  slds-text-align_left">Aeroporto de origem selecionado: {value}</p>
 
         <lightning-combobox name="Aeroporto2"
                         label="Selecione aeroporto de chegada"
@@ -16,11 +17,10 @@
                         onchange={handleChangeAeroporto2}>
         </lightning-combobox>
 
-        <p class="slds-m-around_medium">Aeroporto de destino selecionado: {value2}</p>
-    
+        <p class="slds-text-align_left slds-p-around_x-small ">Aeroporto de destino selecionado: {value2}</p>
     </div>
-    <div class="slds-m-top_small slds-m-bottom_medium">
-        <lightning-button variant="brand"
+    <div class="slds-m-top_small slds-m-bottom_medium slds-large-size_6-of-12">
+        <lightning-button variant="brand-outline"
                           label="Calcular distância entre aeroportos" 
                           title="Calcular distância entre aeroportos" 
                           value={distancia}
@@ -31,12 +31,26 @@
         ></lightning-button>
       </div>
       <div>
-         <lightning-card   options={campo}>
-        <div class="slds-m-around_medium">
-          A distância entre os aeroportos é de {distancia} Km.
+         <div class="slds-box slds-theme_shade slds-large-size_6-of-12" 
+              options={campo}>
+        <div class="slds-m-around_medium slds-m-around_medium slds-text-align_center">
+        A distância entre os aeroportos é de {distancia} Km.
         </div>
-    </lightning-card>
-      </div>   
+    </div>
+      </div>
+      <div >
+     <div class="slds-m-top_small slds-m-bottom_medium slds-large-size_12-of-12">
+          <lightning-button variant="brand-outline" 
+                        label="Salvar voo"
+                        title="Successful action" 
+                        onclick={handleClickSalvar}>
+          </lightning-button></div> 
+        <div><span class="slds-text-heading_small">{clickedButtonLabel}</span></div>
+      <p class="slds-text-heading_small">Dados do voo: </p>
+      <p class="slds-text-align_left">Aeroporto de partida selecionado: {aeroporto1} </p>
+      <p class="slds-text-align_left">Aeroporto de chegada selecionado: {aeroporto2} </p>
+      <p class="slds-text-align_left">Distância entre aeroportos é: {distancia} Km</p>
+      </div>      
 </template>
 
 

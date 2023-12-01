@@ -16,7 +16,6 @@ public class CalculaDistancia {
         Math.sin(longitudeDelta/2) * Math.sin(longitudeDelta/2);
         Decimal arc = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         Decimal distance = earthRadius * arc; // in metres
-  
           return distance;
   }
 }
